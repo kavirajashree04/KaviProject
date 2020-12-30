@@ -1,0 +1,46 @@
+import Foundation
+import Glibc
+ 
+let onesPlace = ["", "one ", "two ", "three ", "four ", 
+                 "five ", "six ", "seven ", "eight ", 
+                 "nine ", "ten ", "eleven ", "twelve ", 
+                 "thirteen ", "fourteen ", "fifteen ", 
+                 "sixteen ", "seventeen ", "eighteen ", 
+                 "nineteen "]
+ 
+ let tensPlace = ["", "", "twenty ", "thirty ", "forty ", 
+                 "fifty ", "sixty ", "seventy ", "eighty ", 
+                 "ninety "]
+
+func numToString(value: Int, s: String) -> String{
+    var str = ""
+    if (value > 19){
+        str = str + tensPlace[(value / 10)] + onesPlace[value % 10]
+    }
+    else{
+        str = str + onesPlace[value]
+    }
+    if (value != 0){
+        str = str + s
+    }
+    return str
+}
+
+func convertToString(value: Int) -> String {
+    var word = ""
+    word = word + numToString(value: (value / 10000000), s: "crore ")
+    word = word + numToString(value: ((value / 100000) % 100), s: "lakh ")
+    word = word + numToString(value: ((value / 1000) % 100), s: "thousand ")
+    word = word + numToString(value: ((value / 100) % 10), s: "hundred ")
+    if (value > 100){
+        word = word + "and "
+    }
+    word = word + numToString(value: (value % 100), s: ""); 
+    return word
+}
+
+print("480: ",convertToString(value: 480))
+print("1: ",convertToString(value: 1))
+print("11: ",convertToString(value: 11))
+print("111: ",convertToString(value: 111))
+print("1111: ",convertToString(value: 1111))
